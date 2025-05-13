@@ -1,7 +1,7 @@
-from Bewoners import Bewoners, Bewoner
+from bewoners import Bewoners, Bewoner
 from datetime import datetime, timedelta
-from Logger import Logger
-
+from logger import Logger
+from kamers import Kamer
 
 class Apparaten:
     def __init__(self):
@@ -11,7 +11,9 @@ class Apparaten:
 class Apparaat:
     def __init__(
         self,
+        naam
     ):
+        self.naam = naam
         self.status = False
 
     def schakel(self):
@@ -55,11 +57,11 @@ class Bewegingssensor(Apparaat):
         super().__init__()
         self.isbeweging = False
 
-    def detecteer_beweging(self):  # detecteert beweging in kamer
-        self.isbeweging = True
-
-    def detecteert_geen_beweging(self):
-        self.isbeweging = False
+    def detecteer_beweging(self,kamer:Kamer):  # detecteert beweging in kamer
+        if kamer.huidige_bewoners >= 1:
+            return True
+        else:
+            return False
 
 
 class Rookmelder(Apparaat):
@@ -96,4 +98,7 @@ class Klok(Apparaat):
         self.huidige_tijd += self.tijd_per_stap
 
     def get_tijd(self):
+        return self.huidige_tijd
+
+    def get_tijd_str(self):
         return self.huidige_tijd.strftime("%H:%M")

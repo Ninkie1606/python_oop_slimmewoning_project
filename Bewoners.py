@@ -1,5 +1,5 @@
 import random
-from Kamers import Kamer
+from kamers import Kamer
 
 
 class Bewoners:

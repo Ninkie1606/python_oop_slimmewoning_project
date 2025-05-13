@@ -1,5 +1,5 @@
-from Apparaten import Apparaten, Apparaat
-from Bewoners import Bewoners, Bewoner
+from apparaten import Apparaten, Apparaat
+from bewoners import Bewoners, Bewoner
 
 
 class Kamers:
