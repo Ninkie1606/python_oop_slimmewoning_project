@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+        <head><title>Slimmme Woning</title></head>
+    <body>
+        <h2>Dit is het slimme huis {{ woning.naam }}</h2>
+        {% for kamer in woning.kamers.lijst %}
+        <h3>Kamer: {{ kamer.naam }}</h3>
+        <p>Bewoners in deze kamer:</p>
+        <ul>
+            {% for bewoner in kamer.huidige_bewoners.lijst %}
+                <li>{{ bewoner.naam }}</li>
+            {% endfor %}
+        </ul>
+
+        <p>Apparaten in deze kamer:</p>
+        <ul>
+            {% for apparaat in kamer.apparaten.lijst %}
+                <li>{{ apparaat.naam }}</li>
+                <li>Status: {{ 'Aan' if apparaat.status else 'Uit' }}</li>
+            {% endfor %}
+            <hr>
+        </ul>
+        {% endfor %}
+    </body>
+</html>

@@ -1,5 +1,9 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
 import random
-from kamers import Kamer
+
+if TYPE_CHECKING:
+    from kamers import Kamer
 
 
 class Bewoners:

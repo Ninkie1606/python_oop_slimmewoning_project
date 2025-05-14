@@ -1,7 +1,10 @@
-from bewoners import Bewoners, Bewoner
+from __future__ import annotations
 from datetime import datetime, timedelta
-from logger import Logger
-from kamers import Kamer
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from kamers import Kamer
+
 
 class Apparaten:
     def __init__(self):
@@ -9,41 +12,35 @@ class Apparaten:
 
 
 class Apparaat:
-    def __init__(
-        self,
-        naam
-    ):
+    def __init__(self, naam: str = ""):
         self.naam = naam
         self.status = False
 
     def schakel(self):
-        if self.status:
-            self.status = False
-        else:
-            self.status = True
+        self.status = not self.status
 
 
 class Lamp(Apparaat):
-    def __init__(self, helderheid=60):
-        super().__init__()
+    def __init__(self, naam="Lamp", helderheid=60):
+        super().__init__(naam)
         self.helderheid = helderheid
 
-    def pas_helderheid_aan(self, helderheid):
+    def pas_helderheid_aan(self, helderheid: int):
         self.helderheid = helderheid
 
 
 class Thermostaat(Apparaat):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, naam="Thermostaat"):
+        super().__init__(naam)
         self.temperatuur = 20
 
-    def pas_temperatuur_aan(self, temp):  # moet temperatuur van woning aanpassen
+    def pas_temperatuur_aan(self, temp: int):
         self.temperatuur = temp
 
 
 class Deurslot(Apparaat):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, naam="Deurslot"):
+        super().__init__(naam)
 
     def ontgrendel(self):
         self.status = False
@@ -53,20 +50,17 @@ class Deurslot(Apparaat):
 
 
 class Bewegingssensor(Apparaat):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, naam="Bewegingssensor"):
+        super().__init__(naam)
         self.isbeweging = False
 
-    def detecteer_beweging(self,kamer:Kamer):  # detecteert beweging in kamer
-        if kamer.huidige_bewoners >= 1:
-            return True
-        else:
-            return False
+    def detecteer_beweging(self, kamer: Kamer):
+        return len(kamer.huidige_bewoners.lijst) >= 1
 
 
 class Rookmelder(Apparaat):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, naam="Rookmelder"):
+        super().__init__(naam)
         self.isrook = False
 
     def activeer_alarm(self):
@@ -77,8 +71,8 @@ class Rookmelder(Apparaat):
 
 
 class Gordijn(Apparaat):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, naam="Gordijn"):
+        super().__init__(naam)
         self.isopen = False
 
     def openen(self):
@@ -90,11 +84,11 @@ class Gordijn(Apparaat):
 
 class Klok(Apparaat):
     def __init__(self, starttijd="06:00", stap_grootte_in_minuten=10):
-        super().__init__()
+        super().__init__("Klok")
         self.tijd_per_stap = timedelta(minutes=stap_grootte_in_minuten)
         self.huidige_tijd = datetime.strptime(starttijd, "%H:%M")
 
-    def tik(self):  # 1 stap
+    def tik(self):
         self.huidige_tijd += self.tijd_per_stap
 
     def get_tijd(self):
