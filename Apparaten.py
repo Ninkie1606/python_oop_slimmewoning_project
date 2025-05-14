@@ -38,8 +38,8 @@ class Thermostaat(Apparaat):
         self.temperatuur = temp
 
 
-class Deurslot(Apparaat):
-    def __init__(self, naam="Deurslot"):
+class Deur(Apparaat):
+    def __init__(self, naam="Deur"):
         super().__init__(naam)
 
     def ontgrendel(self):

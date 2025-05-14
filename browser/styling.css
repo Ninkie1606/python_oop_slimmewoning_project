@@ -1,5 +1,5 @@
 body{
-    zoom: 80%;
+    zoom: 60%;
 }
 
 h2,#klok{
@@ -16,11 +16,29 @@ h2,#klok{
     justify-content: center;
     gap: 1rem;
 }
+li{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    border: 1px black solid;
+    padding: 2px;
+}
+#bewonernaam{
+    border: none;
+}
 .kamer{
     border: solid 2px black;
     padding: 1rem;
 }
 .bewoner{
     margin-top: 1rem;
-    height: 5rem;
+    height: 4rem;
+}
+.extra{
+    margin-left: 1rem;
+}
+.aan{
+    background-color: green;
+}
+.uit{
+    background-color: red;
 }

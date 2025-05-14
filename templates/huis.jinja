@@ -1,35 +1,65 @@
 <!DOCTYPE html>
-
 <html>
-        <head>
-            <title>Slimmme Woning</title>
-            <link rel="stylesheet" href="reset.css">
-            <link rel="stylesheet" href="styling.css">
-        </head>
+    <head>
+        <title>Slimmme Woning</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="styling.css">
+    </head>
     <body>
-        <section id = "bovenstuk">
+        <section id="bovenstuk">
             <h2>Dit is het slimme huis {{ woning.naam }}</h2>
-            <h3 id = "klok">tijd {{ woning.klok.get_tijd_str() }}</h3>
+            <h3 id="klok">Tijd: {{ woning.klok.get_tijd_str() }}</h3>
         </section>
-        <section id = "kamers">
+        <section id="kamers">
         {% for kamer in woning.kamers.lijst %}
-            <section class = kamer>
+            <section class="kamer">
                 <h3>Kamer: {{ kamer.naam }}</h3>
-                <section class = bewoner>
+
+                <section class="bewoner">
                     <p>Bewoners in deze kamer:</p>
                     <ul>
                         {% for bewoner in kamer.huidige_bewoners.lijst %}
-                            <B><li>{{ bewoner.naam }}</li></B>
+                            <li id = bewonernaam>{{ bewoner.naam }}</li>
                         {% endfor %}
                     </ul>
                 </section>
-                <section class = apparaten>
-                <p>Apparaten in deze kamer:</p>
-                <ul>
-                    {% for apparaat in kamer.apparaten.lijst %}
-                        <li><B>{{ apparaat.naam }}</B>Status: {{ 'Aan' if apparaat.status else 'Uit' }}</li>
-                    {% endfor %}
-                </ul>
+
+                <section class="apparaten">
+                    <p>Apparaten in deze kamer:</p>
+                    <ul>
+                        {% for apparaat in kamer.apparaten.lijst %}
+                            <li>
+                                <b>{{ apparaat.naam }}:</b>
+                                <section class = "{{ 'aan' if apparaat.status else 'uit' }}">
+                                    Status: {{ 'Aan' if apparaat.status else 'Uit' }}
+                                </section>
+
+                                <section class = extra>
+
+                                    {% if apparaat.__class__.__name__ == 'Lamp' %}
+                                        Helderheid: {{ apparaat.helderheid }}%
+
+                                    {% elif apparaat.__class__.__name__ == 'Thermostaat' %}
+                                        Temperatuur: {{ apparaat.temperatuur }}&deg;C
+
+                                    {% elif apparaat.__class__.__name__ == 'Gordijn' %}
+                                        Gordijn: {{ 'Open' if apparaat.isopen else 'Gesloten' }}
+
+                                    {% elif apparaat.__class__.__name__ == 'Rookmelder' %}
+                                        Rook: {{ 'Gedetecteerd' if apparaat.isrook else 'Geen rook' }}
+
+                                    {% elif apparaat.__class__.__name__ == 'Bewegingssensor' %}
+                                        Beweging: {{ 'Gedetecteerd' if apparaat.isbeweging else 'Geen beweging' }}
+
+                                    {% elif apparaat.__class__.__name__ == 'Deur' %}
+                                        Deurslot: {{ 'Vergrendeld' if apparaat.status else 'Ontgrendeld' }}
+
+                                    {% endif %}
+                                
+                                </section>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </section>
             </section>
         {% endfor %}
