@@ -1,25 +1,38 @@
 <!DOCTYPE html>
-<html>
-        <head><title>Slimmme Woning</title></head>
-    <body>
-        <h2>Dit is het slimme huis {{ woning.naam }}</h2>
-        {% for kamer in woning.kamers.lijst %}
-        <h3>Kamer: {{ kamer.naam }}</h3>
-        <p>Bewoners in deze kamer:</p>
-        <ul>
-            {% for bewoner in kamer.huidige_bewoners.lijst %}
-                <li>{{ bewoner.naam }}</li>
-            {% endfor %}
-        </ul>
 
-        <p>Apparaten in deze kamer:</p>
-        <ul>
-            {% for apparaat in kamer.apparaten.lijst %}
-                <li>{{ apparaat.naam }}</li>
-                <li>Status: {{ 'Aan' if apparaat.status else 'Uit' }}</li>
-            {% endfor %}
-            <hr>
-        </ul>
+<html>
+        <head>
+            <title>Slimmme Woning</title>
+            <link rel="stylesheet" href="reset.css">
+            <link rel="stylesheet" href="styling.css">
+        </head>
+    <body>
+        <section id = "bovenstuk">
+            <h2>Dit is het slimme huis {{ woning.naam }}</h2>
+            <h3 id = "klok">tijd {{ woning.klok.get_tijd_str() }}</h3>
+        </section>
+        <section id = "kamers">
+        {% for kamer in woning.kamers.lijst %}
+            <section class = kamer>
+                <h3>Kamer: {{ kamer.naam }}</h3>
+                <section class = bewoner>
+                    <p>Bewoners in deze kamer:</p>
+                    <ul>
+                        {% for bewoner in kamer.huidige_bewoners.lijst %}
+                            <B><li>{{ bewoner.naam }}</li></B>
+                        {% endfor %}
+                    </ul>
+                </section>
+                <section class = apparaten>
+                <p>Apparaten in deze kamer:</p>
+                <ul>
+                    {% for apparaat in kamer.apparaten.lijst %}
+                        <li><B>{{ apparaat.naam }}</B>Status: {{ 'Aan' if apparaat.status else 'Uit' }}</li>
+                    {% endfor %}
+                </ul>
+                </section>
+            </section>
         {% endfor %}
+        </section>
     </body>
 </html>
