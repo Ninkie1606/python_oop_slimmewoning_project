@@ -15,9 +15,12 @@ class Bewegingssensor(Apparaat):
     def detecteer_beweging(self):
         if len(self.kamer.huidige_bewoners.lijst) >= 1:
             self.isbeweging = True
-            if self.status == False:
-                self.schakel()
+            self.woning.logger.sla_op(
+                self.log_bewegingssensor(), self.woning.klok.get_tijd()
+            )
         else:
             self.isbeweging = False
-            if self.status == True:
-                self.schakel()
+
+    def log_bewegingssensor(self):
+        if self.isbeweging:
+            return f"bewegingssensor in {self.kamer.naam} ziet activiteit"

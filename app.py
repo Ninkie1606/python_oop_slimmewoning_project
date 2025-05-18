@@ -13,6 +13,7 @@ from apparaten import (
     Klok,
 )
 import time
+import random
 
 
 def main():
@@ -35,13 +36,13 @@ def main():
     woning.voeg_bewoner_toe(Bewoner("nick"))
 
     for kamer in woning.kamers.lijst:
-        kamer.voeg_apparaat_toe(Lamp(woning, "Lamp"))
-        kamer.voeg_apparaat_toe(Thermostaat(woning, "Thermostaat"))
-        kamer.voeg_apparaat_toe(Deur("Deur"))
+        kamer.voeg_apparaat_toe(Lamp(woning, kamer, "Lamp"))
+        kamer.voeg_apparaat_toe(Thermostaat(woning, kamer, "Thermostaat"))
+        kamer.voeg_apparaat_toe(Deur(woning, kamer, "Deur"))
         kamer.voeg_apparaat_toe(Bewegingssensor(woning, kamer, "Bewegingssensor"))
-        kamer.voeg_apparaat_toe(Rookmelder(woning, "Rookmelder"))
+        kamer.voeg_apparaat_toe(Rookmelder(woning, kamer, "Rookmelder"))
         if kamer.naam not in ["gang", "badkamer", "wc"]:
-            kamer.voeg_apparaat_toe(Gordijn(woning, "Gordijn"))
+            kamer.voeg_apparaat_toe(Gordijn(woning, kamer, "Gordijn"))
 
     nacht_ingegaan = False
     while True:
@@ -59,10 +60,39 @@ def main():
                     bewoner.slaap(woning.kamers.lijst)
                 nacht_ingegaan = True
 
+        # brand
+        for kamer in woning.kamers.lijst:
+            for apparaat in kamer.apparaten.lijst:
+                if isinstance(apparaat, Rookmelder) and not apparaat.status:
+                    apparaat.schakel()
+                if isinstance(apparaat, Rookmelder):
+                    is_rook = random.randint(1, 1000)
+
+                    if is_rook == 5:  # brand
+                        apparaat.activeer_alarm()
+                        # alle bewoners vluchten
+                        woning.bewoners.lijst.clear()
+
+                        for kamer in woning.kamers.lijst:
+                            kamer.huidige_bewoners.lijst.clear()
+
+                        # alle apparaten uit
+                        for kamer in woning.kamers.lijst:
+                            for apparaat in kamer.apparaten.lijst:
+                                apparaat.status = False
+                                apparaat.woning.logger.sla_op(
+                                    apparaat.log_schakel(), woning.klok.get_tijd()
+                                )
+
+                        woning.logger.sla_op(
+                            "evacuatie voltooid", woning.klok.get_tijd()
+                        )
+                        woning.html_gen.gen_html()
+                        exit()
+
         woning.smarthub.update()
         woning.logger.sla_op("Stap voltooid", woning.klok.get_tijd())
         woning.html_gen.gen_html()
-        woning.logger.schrijf_weg()
         time.sleep(snelheid)
 
 
