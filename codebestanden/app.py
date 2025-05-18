@@ -66,7 +66,7 @@ def main():
                 if isinstance(apparaat, Rookmelder) and not apparaat.status:
                     apparaat.schakel()
                 if isinstance(apparaat, Rookmelder):
-                    is_rook = random.randint(1, 1000)
+                    is_rook = random.randint(1, 100)
 
                     if is_rook == 5:  # brand
                         apparaat.activeer_alarm()
@@ -75,7 +75,9 @@ def main():
 
                         for kamer in woning.kamers.lijst:
                             kamer.huidige_bewoners.lijst.clear()
-
+                        apparaat.woning.logger.sla_op(
+                            "bewoners hebben de woning verlaten", woning.klok.get_tijd()
+                        )
                         # alle apparaten uit
                         for kamer in woning.kamers.lijst:
                             for apparaat in kamer.apparaten.lijst:
