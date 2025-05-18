@@ -6,7 +6,7 @@ class HTMLGen:
         self.woning = woning
         self.env = Environment(loader=FileSystemLoader("templates"))
 
-    def gen_html(self, bestandsnaam="./_site/slimme_woning.html"):
+    def gen_html(self, bestandsnaam="../_site/slimme_woning.html"):
         template = self.env.get_template("huis.jinja")
         output = template.render(woning=self.woning)
 
