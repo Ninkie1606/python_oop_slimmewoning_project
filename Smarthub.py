@@ -17,7 +17,6 @@ class Smarthub:
         hour = self.woning.klok.huidige_tijd.hour
 
         if 6 <= hour and hour < 22:  # dag
-            print("dag")
             # checken of bewoners bewegen
             for kamer in self.woning.kamers.lijst:  # alle bewegingsensors detecten
                 for apparaat in kamer.apparaten.lijst:
@@ -70,8 +69,6 @@ class Smarthub:
                             apparaat.openen()
 
         else:  # nacht
-            print("nacht")
-
             for kamer in self.woning.kamers.lijst:
                 for apparaat in kamer.apparaten.lijst:  # alle apparaten
                     if isinstance(apparaat, Thermostaat):  # nacht thermostaat
