@@ -7,6 +7,6 @@ class Logger:
         self.opslag.append(f"{tijd}: {text}")
 
     def schrijf_weg(self):  # naar bestand
-        with open(self.bestandsnaam, "a") as f:
+        with open(self.bestandsnaam, "w") as f:
             for regel in self.opslag:
                 f.write(f"{regel} \n")
