@@ -1,5 +1,6 @@
 from __future__ import annotations
-from apparaten import Apparaten, Apparaat
+from typing import TYPE_CHECKING
+from apparaten import Apparaat, Apparaten
 from bewoners import Bewoners
 
 

@@ -52,7 +52,7 @@
                                         Beweging: {{ 'Gedetecteerd' if apparaat.isbeweging else 'Geen beweging' }}
 
                                     {% elif apparaat.__class__.__name__ == 'Deur' %}
-                                        Deurslot: {{ 'Vergrendeld' if apparaat.status else 'Ontgrendeld' }}
+                                        Deurslot: {{ 'Ontgrendeld' if apparaat.isopen else 'Vergrendeld' }}
 
                                     {% endif %}
                                 

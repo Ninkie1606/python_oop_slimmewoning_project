@@ -13,7 +13,7 @@ class Woning:
         self.kamers: Kamers = Kamers()
         self.bewoners: Bewoners = Bewoners()
         self.smarthub = Smarthub(self)
-        self.klok = Klok()
+        self.klok = Klok(self)
         self.logger = Logger()
         self.html_gen = HTMLGen(self)
 

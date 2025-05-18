@@ -3,7 +3,15 @@ from __future__ import annotations
 from woning import Woning
 from kamers import Kamer
 from bewoners import Bewoner
-from apparaten import Lamp, Thermostaat, Deur, Bewegingssensor, Rookmelder, Gordijn
+from apparaten import (
+    Bewegingssensor,
+    Deur,
+    Gordijn,
+    Lamp,
+    Rookmelder,
+    Thermostaat,
+    Klok,
+)
 import time
 
 
@@ -27,22 +35,31 @@ def main():
     woning.voeg_bewoner_toe(Bewoner("nick"))
 
     for kamer in woning.kamers.lijst:
-        kamer.voeg_apparaat_toe(Lamp("Lamp"))
-        kamer.voeg_apparaat_toe(Thermostaat("Thermostaat"))
+        kamer.voeg_apparaat_toe(Lamp(woning, "Lamp"))
+        kamer.voeg_apparaat_toe(Thermostaat(woning, "Thermostaat"))
         kamer.voeg_apparaat_toe(Deur("Deur"))
-        kamer.voeg_apparaat_toe(Bewegingssensor("Bewegingssensor"))
-        kamer.voeg_apparaat_toe(Rookmelder("Rookmelder"))
+        kamer.voeg_apparaat_toe(Bewegingssensor(woning, kamer, "Bewegingssensor"))
+        kamer.voeg_apparaat_toe(Rookmelder(woning, "Rookmelder"))
         if kamer.naam not in ["gang", "badkamer", "wc"]:
-            kamer.voeg_apparaat_toe(Gordijn("Gordijn"))
+            kamer.voeg_apparaat_toe(Gordijn(woning, "Gordijn"))
 
+    nacht_ingegaan = False
     while True:
         woning.klok.tik()
+        hour = woning.klok.huidige_tijd.hour
 
-        for bewoner in woning.bewoners.lijst:
-            bewoner.beweeg(woning.kamers.lijst)
+        if 6 <= hour and hour < 22:  # dag
+            nacht_ingegaan = False
+            for bewoner in woning.bewoners.lijst:
+                bewoner.beweeg(woning.kamers.lijst)
+
+        else:  # nacht
+            if not nacht_ingegaan:
+                for bewoner in woning.bewoners.lijst:
+                    bewoner.slaap(woning.kamers.lijst)
+                nacht_ingegaan = True
 
         woning.smarthub.update()
-
         woning.logger.sla_op("Stap voltooid", woning.klok.get_tijd())
         woning.html_gen.gen_html()
         woning.logger.schrijf_weg()
