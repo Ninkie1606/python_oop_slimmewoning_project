@@ -8,12 +8,12 @@ from smarthub import Smarthub
 
 
 class Woning:
-    def __init__(self, naam: str):
+    def __init__(self, naam: str, start_tijd):
         self.naam = naam
         self.kamers: Kamers = Kamers()
         self.bewoners: Bewoners = Bewoners()
         self.smarthub = Smarthub(self)
-        self.klok = Klok(self)
+        self.klok = Klok(self, start_tijd)
         self.logger = Logger()
         self.html_gen = HTMLGen(self)
 

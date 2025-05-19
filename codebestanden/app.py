@@ -10,18 +10,19 @@ from apparaten import (
     Lamp,
     Rookmelder,
     Thermostaat,
-    Klok,
 )
 import time
 import random
 
 
 def main():
+    start_tijd = input(f"voer de tijd in waar je wilt starten. Formaat (hh:mm)")
+
     snelheid = int(
         input(f"voer hier de aantal seconden per stap in. (snelheid van het programma)")
     )
 
-    woning = Woning("Huis Van Nick")
+    woning = Woning("Huis Van Nick", start_tijd)
 
     woning.voeg_kamer_toe(Kamer("keuken"))
     woning.voeg_kamer_toe(Kamer("living"))
