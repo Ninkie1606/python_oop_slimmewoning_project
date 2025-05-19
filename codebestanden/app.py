@@ -66,7 +66,7 @@ def main():
                 if isinstance(apparaat, Rookmelder) and not apparaat.status:
                     apparaat.schakel()
                 if isinstance(apparaat, Rookmelder):
-                    is_rook = random.randint(1, 100)
+                    is_rook = random.randint(1, 10000)
 
                     if is_rook == 5:  # brand
                         apparaat.activeer_alarm()
