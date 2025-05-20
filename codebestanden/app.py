@@ -31,10 +31,10 @@ def main():
     woning.voeg_kamer_toe(Kamer("wc"))
     woning.voeg_kamer_toe(Kamer("badkamer"))
     woning.voeg_kamer_toe(Kamer("gang"))
-    woning.voeg_bewoner_toe(Bewoner("mama"))
-    woning.voeg_bewoner_toe(Bewoner("papa"))
-    woning.voeg_bewoner_toe(Bewoner("zusje"))
-    woning.voeg_bewoner_toe(Bewoner("nick"))
+    woning.voeg_bewoner_toe(Bewoner("mama", woning))
+    woning.voeg_bewoner_toe(Bewoner("papa", woning))
+    woning.voeg_bewoner_toe(Bewoner("zusje", woning))
+    woning.voeg_bewoner_toe(Bewoner("nick", woning))
 
     for kamer in woning.kamers.lijst:
         kamer.voeg_apparaat_toe(Lamp(woning, kamer, "Lamp"))

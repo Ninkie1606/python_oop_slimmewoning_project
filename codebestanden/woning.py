@@ -5,6 +5,7 @@ from htmlgen import HTMLGen
 from kamers import Kamer, Kamers
 from bewoners import Bewoner, Bewoners
 from smarthub import Smarthub
+from ai import Ai
 
 
 class Woning:
@@ -16,6 +17,7 @@ class Woning:
         self.klok = Klok(self, start_tijd)
         self.logger = Logger()
         self.html_gen = HTMLGen(self)
+        self.ai = Ai()
 
     def voeg_kamer_toe(self, kamer: Kamer):
         self.kamers.lijst.append(kamer)

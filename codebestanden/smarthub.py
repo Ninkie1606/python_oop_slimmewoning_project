@@ -16,7 +16,9 @@ class Smarthub:
 
         hour = self.woning.klok.huidige_tijd.hour
 
-        if 6 <= hour and hour < 22:  # dag
+        dag = 6 <= hour < 22
+
+        if dag:  # dag
             # checken of bewoners bewegen
             for kamer in self.woning.kamers.lijst:  # alle bewegingsensors detecten
                 for apparaat in kamer.apparaten.lijst:
@@ -59,7 +61,7 @@ class Smarthub:
                     if (
                         isinstance(apparaat, Deur) and not kamer.naam == "gang"
                     ):  # gang moet toe blijven (voordeur)
-                        if not apparaat.isopen:  # als niet open is
+                        if not apparaat.is_open:  # als niet open is
                             apparaat.schakel()
                             apparaat.ontgrendel()
 
@@ -75,7 +77,7 @@ class Smarthub:
                         if not apparaat.temperatuur == 16:  # als aan staat zet uit
                             apparaat.pas_temperatuur_aan(16)
                     if isinstance(apparaat, Deur):  # als nacht deur moet toe
-                        if apparaat.isopen:
+                        if apparaat.is_open:
                             apparaat.vergrendel()
                             apparaat.schakel()
                     if isinstance(apparaat, Gordijn):

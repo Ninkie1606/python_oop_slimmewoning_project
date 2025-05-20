@@ -21,7 +21,12 @@
   - Er word bij elke verandering van een apparaat door het apparaat zelf gelogt aan de hand van de logger. Zo staan alle logging's mooi per apparaat en kan een apparaat verwijderd worden indien nodig.
 
 - ### Brandoefening
+
   - 1/10 000 kans per kamer dat er brand ontstaat. Dan verlaten eerst alle bewoners het gebouw, daarna worden alle toestellen uit gezet. De applicatie word dan wel gestopt.
+
+- ### Ai klasse
+  - Het idee van deze klasse is dat hij data kan maken, verzamelen, en verwerken. Mijn idee was om de data van bewoners te verzamelen en te zien welke bewoner welke kamer het meeste bezoekt.
+    In het echt zou dit aan de bewegingsensors gekoppelt worden en niet aan de bewoners zoals mijn applicatie. Maar ik heb hier geen classificatiemodel aan verbonden.
 
 ## Opstarten van het project
 
@@ -53,9 +58,13 @@
 
   In het begin wist ik niet waar ik naar toe moest gaan in zin van klassen opbouw. Ik was wel vastberaden om het met containerklassen te doen en dat is goed gelukt.
 
-- ### opslagstructuur apparaten
+- ### Opslagstructuur apparaten
 
   In het vervolg zou ik mijn klassen niet in een lijst maar dictionary opslaan zo kan ik veel sneller en handiger alle apparaten zoeken/regelen.
+
+- ### Data ophalen (Ai klasse)
+
+  Ik vond het best moeilijk om te begrijpen hoe ik de data die ik nu heb om te vormen naar json.
 
 ## Wat ik er van vond
 

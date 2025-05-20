@@ -4,6 +4,7 @@ import random
 
 if TYPE_CHECKING:
     from kamers import Kamer
+    from woning import Woning
 
 
 class Bewoners:
@@ -12,9 +13,10 @@ class Bewoners:
 
 
 class Bewoner:
-    def __init__(self, naam):
+    def __init__(self, naam, woning):
         self.naam = naam
         self.huidige_kamer: Kamer = None
+        self.woning: Woning = woning
 
     def beweeg(self, kamerlijst: list[Kamer]):
         if self.huidige_kamer is not None:
@@ -24,6 +26,9 @@ class Bewoner:
         self.huidige_kamer = nieuwe_kamer
 
         nieuwe_kamer.huidige_bewoners.lijst.append(self)
+
+        # bewoner en welke kamer data opslaan
+        self.woning.ai.data_maken({"bewoner": self.naam, "kamer": nieuwe_kamer.naam})
 
     def slaap(self, kamerlijst: list[Kamer]):
         if self.huidige_kamer is not None:
